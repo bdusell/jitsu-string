@@ -35,10 +35,10 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::equal('aaa', 'AAA'), false);
 	}
 
-	public function testIequal() {
-		$this->eq(s::iequal('aaa', 'AAA'), true);
-		$this->eq(s::iequal('aaa', 'bbb'), false);
-		$this->eq(s::iequal('', ''), true);
+	public function testIEqual() {
+		$this->eq(s::iEqual('aaa', 'AAA'), true);
+		$this->eq(s::iEqual('aaa', 'bbb'), false);
+		$this->eq(s::iEqual('', ''), true);
 	}
 
 	public function testChars() {
@@ -167,27 +167,27 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 			array('x', 1));
 	}
 
-	public function testIreplace() {
-		$this->eq(s::ireplace('abcXabc', 'x', 'y'), 'abcyabc');
-		$this->eq(s::ireplace('afoOBara', 'foobar', 'b'), 'aba');
-		$this->eq(s::ireplace('aaxYaaaXya', 'xy', 'b'), 'aabaaaba');
-		$this->eq(s::ireplace('', 'abc', ''), '');
-		$this->eq(s::ireplace('abc', '', 'x'), 'xaxbxcx');
-		$this->eq(s::ireplace('', '', 'x'), 'x');
+	public function testIReplace() {
+		$this->eq(s::iReplace('abcXabc', 'x', 'y'), 'abcyabc');
+		$this->eq(s::iReplace('afoOBara', 'foobar', 'b'), 'aba');
+		$this->eq(s::iReplace('aaxYaaaXya', 'xy', 'b'), 'aabaaaba');
+		$this->eq(s::iReplace('', 'abc', ''), '');
+		$this->eq(s::iReplace('abc', '', 'x'), 'xaxbxcx');
+		$this->eq(s::iReplace('', '', 'x'), 'x');
 	}
 
-	public function testIreplaceCount() {
-		$this->eq(s::ireplaceCount('abcXabc', 'x', 'y'),
+	public function testIReplaceCount() {
+		$this->eq(s::iReplaceCount('abcXabc', 'x', 'y'),
 			array('abcyabc', 1));
-		$this->eq(s::ireplaceCount('afoOBara', 'foobar', 'b'),
+		$this->eq(s::iReplaceCount('afoOBara', 'foobar', 'b'),
 			array('aba', 1));
-		$this->eq(s::ireplaceCount('aaxYaaaXya', 'xy', 'b'),
+		$this->eq(s::iReplaceCount('aaxYaaaXya', 'xy', 'b'),
 			array('aabaaaba', 2));
-		$this->eq(s::ireplaceCount('', 'abc', ''),
+		$this->eq(s::iReplaceCount('', 'abc', ''),
 			array('', 0));
-		$this->eq(s::ireplaceCount('abc', '', 'x'),
+		$this->eq(s::iReplaceCount('abc', '', 'x'),
 			array('xaxbxcx', 4));
-		$this->eq(s::ireplaceCount('', '', 'x'),
+		$this->eq(s::iReplaceCount('', '', 'x'),
 			array('x', 1));
 	}
 
@@ -339,14 +339,14 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::startingWith('aaxaaxaa', 'x'), 'xaaxaa');
 	}
 
-	public function testIstartingWith() {
-		$this->eq(s::istartingWith('abCdef', 'cd'), 'Cdef');
+	public function testIStartingWith() {
+		$this->eq(s::iStartingWith('abCdef', 'cd'), 'Cdef');
 	}
 
-	public function testRstartingWith() {
-		$this->eq(s::rstartingWith('aaxaa', 'x'), 'xaa');
-		$this->eq(s::rstartingWith('aaxaaxaa', 'x'), 'xaa');
-		$this->eq(s::rstartingWith('abcdef', 'x'), null);
+	public function testRStartingWith() {
+		$this->eq(s::rStartingWith('aaxaa', 'x'), 'xaa');
+		$this->eq(s::rStartingWith('aaxaaxaa', 'x'), 'xaa');
+		$this->eq(s::rStartingWith('abcdef', 'x'), null);
 	}
 
 	public function testStartingWithChars() {
@@ -361,9 +361,9 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::preceding('abcdef', ''), '');
 	}
 
-	public function testIpreceding() {
-		$this->eq(s::ipreceding('aBcDef', 'cde'), 'aB');
-		$this->eq(s::ipreceding('abCdEf', 'x'), null);
+	public function testIPreceding() {
+		$this->eq(s::iPreceding('aBcDef', 'cde'), 'aB');
+		$this->eq(s::iPreceding('abCdEf', 'x'), null);
 	}
 
 	public function testWords() {
@@ -403,91 +403,91 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 			'abcXdef');
 	}
 
-	public function testCmp() {
-		$this->eq(s::cmp('', ''), 0);
-		$this->lt(s::cmp('aaa', 'aaaa'), 0);
-		$this->lt(s::cmp('aaa', 'aab'), 0);
-		$this->gt(s::cmp('bbb', 'aaa'), 0);
-		$this->eq(s::cmp('aaa', 'aaa'), 0);
+	public function testCompare() {
+		$this->eq(s::compare('', ''), 0);
+		$this->lt(s::compare('aaa', 'aaaa'), 0);
+		$this->lt(s::compare('aaa', 'aab'), 0);
+		$this->gt(s::compare('bbb', 'aaa'), 0);
+		$this->eq(s::compare('aaa', 'aaa'), 0);
 	}
 
-	public function testIcmp() {
-		$this->eq(s::icmp('', ''), 0);
-		$this->eq(s::icmp('aaa', 'AAA'), 0);
-		$this->lt(s::icmp('aaa', 'bbb'), 0);
-		$this->lt(s::icmp('aaa', 'BBB'), 0);
+	public function testICompare() {
+		$this->eq(s::iCompare('', ''), 0);
+		$this->eq(s::iCompare('aaa', 'AAA'), 0);
+		$this->lt(s::iCompare('aaa', 'bbb'), 0);
+		$this->lt(s::iCompare('aaa', 'BBB'), 0);
 	}
 
-	public function testNcmp() {
-		$this->eq(s::ncmp('abc', 'abcdef', 3), 0);
-		$this->lt(s::ncmp('abc', 'abcdef', 5), 0);
-		$this->eq(s::ncmp('', '', 5), 0);
-		$this->eq(s::ncmp('abc', 'def', 0), 0);
+	public function testNCompare() {
+		$this->eq(s::nCompare('abc', 'abcdef', 3), 0);
+		$this->lt(s::nCompare('abc', 'abcdef', 5), 0);
+		$this->eq(s::nCompare('', '', 5), 0);
+		$this->eq(s::nCompare('abc', 'def', 0), 0);
 	}
 
-	public function testIncmp() {
-		$this->eq(s::incmp('abcdef', 'ABCdefghi', 6), 0);
-		$this->eq(s::incmp('', '', 10), 0);
-		$this->eq(s::incmp('fsdfgf', 'gfsd', 0), 0);
-		$this->lt(s::incmp('abcxxx', 'ABDxxx', 3), 0);
+	public function testInCompare() {
+		$this->eq(s::inCompare('abcdef', 'ABCdefghi', 6), 0);
+		$this->eq(s::inCompare('', '', 10), 0);
+		$this->eq(s::inCompare('fsdfgf', 'gfsd', 0), 0);
+		$this->lt(s::inCompare('abcxxx', 'ABDxxx', 3), 0);
 	}
 
-	public function testLocaleCmp() {
-		$this->eq(s::localeCmp('', ''), 0);
-		$this->eq(s::localeCmp('a', 'a'), 0);
-		$this->lt(s::localeCmp('a', 'b'), 0);
+	public function testLocaleCompare() {
+		$this->eq(s::localeCompare('', ''), 0);
+		$this->eq(s::localeCompare('a', 'a'), 0);
+		$this->lt(s::localeCompare('a', 'b'), 0);
 	}
 
-	public function testHumanCmp() {
-		$this->eq(s::humanCmp('', ''), 0);
-		$this->lt(s::humanCmp('test9', 'test10'), 0);
+	public function testHumanCompare() {
+		$this->eq(s::humanCompare('', ''), 0);
+		$this->lt(s::humanCompare('test9', 'test10'), 0);
 	}
 
-	public function testIhumanCmp() {
-		$this->eq(s::ihumanCmp('', ''), 0);
-		$this->lt(s::ihumanCmp('TEST9', 'test10'), 0);
-		$this->lt(s::ihumanCmp('test9', 'TEST10'), 0);
+	public function testIHumanCompare() {
+		$this->eq(s::iHumanCompare('', ''), 0);
+		$this->lt(s::iHumanCompare('TEST9', 'test10'), 0);
+		$this->lt(s::iHumanCompare('test9', 'TEST10'), 0);
 	}
 
-	public function testSubstringCmp() {
-		$this->eq(s::substringCmp('xabcx', 1, 3, 'abc'), 0);
-		$this->ne(s::substringCmp('xabcx', 1, 3, 'def'), 0);
-		$this->lt(s::substringCmp('xabcx', 1, 0, 'xyz'), 0);
-		$this->eq(s::substringCmp('xabcx', 1, 0, ''), 0);
-		$this->eq(s::substringCmp('xxabc', 2, 5, 'abc'), 0);
-		$this->lt(s::substringCmp('xxabc', 2, 5, 'abcd'), 0);
-		$this->eq(s::substringCmp('xxxxx', 5, 5, ''), 0);
-		$this->lt(s::substringCmp('xxxxx', 5, 5, 'a'), 0);
-		$this->eq(s::substringCmp('xabcx', 10, 5, ''), 0);
-		$this->lt(s::substringCmp('xabcx', 10, 5, 'xyz'), 0);
-		$this->eq(s::substringCmp('xxabc', 2, null, 'abc'), 0);
-		$this->eq(s::substringCmp('xxabc', -3, null, 'abc'), 0);
-		$this->eq(s::substringCmp('abcxx', -7, 5, 'abc'), 0);
-		$this->eq(s::substringCmp('abcde', -7, null, 'abcde'), 0);
-		$this->eq(s::substringCmp('abcde', -15, 5, ''), 0);
-		$this->eq(s::substringCmp('abcde', -15, null, 'abcde'), 0);
-		$this->lt(s::substringCmp('', 0, 1, 'abc'), 0);
-		$this->lt(s::substringCmp('', -5, 1, 'abc'), 0);
-		$this->lt(s::substringCmp('', -3, null, 'abc'), 0);
+	public function testSubstringCompare() {
+		$this->eq(s::substringCompare('xabcx', 1, 3, 'abc'), 0);
+		$this->ne(s::substringCompare('xabcx', 1, 3, 'def'), 0);
+		$this->lt(s::substringCompare('xabcx', 1, 0, 'xyz'), 0);
+		$this->eq(s::substringCompare('xabcx', 1, 0, ''), 0);
+		$this->eq(s::substringCompare('xxabc', 2, 5, 'abc'), 0);
+		$this->lt(s::substringCompare('xxabc', 2, 5, 'abcd'), 0);
+		$this->eq(s::substringCompare('xxxxx', 5, 5, ''), 0);
+		$this->lt(s::substringCompare('xxxxx', 5, 5, 'a'), 0);
+		$this->eq(s::substringCompare('xabcx', 10, 5, ''), 0);
+		$this->lt(s::substringCompare('xabcx', 10, 5, 'xyz'), 0);
+		$this->eq(s::substringCompare('xxabc', 2, null, 'abc'), 0);
+		$this->eq(s::substringCompare('xxabc', -3, null, 'abc'), 0);
+		$this->eq(s::substringCompare('abcxx', -7, 5, 'abc'), 0);
+		$this->eq(s::substringCompare('abcde', -7, null, 'abcde'), 0);
+		$this->eq(s::substringCompare('abcde', -15, 5, ''), 0);
+		$this->eq(s::substringCompare('abcde', -15, null, 'abcde'), 0);
+		$this->lt(s::substringCompare('', 0, 1, 'abc'), 0);
+		$this->lt(s::substringCompare('', -5, 1, 'abc'), 0);
+		$this->lt(s::substringCompare('', -3, null, 'abc'), 0);
 	}
 
-	public function testIsubstringCmp() {
-		$this->eq(s::isubstringCmp('xabcx', 1, 3, 'ABC'), 0);
-		$this->ne(s::isubstringCmp('xabcx', 1, 3, 'DEF'), 0);
-		$this->lt(s::isubstringCmp('xabcx', 1, 0, 'XYZ'), 0);
-		$this->eq(s::isubstringCmp('xabcx', 1, 0, ''), 0);
-		$this->eq(s::isubstringCmp('xxabc', 2, 5, 'ABC'), 0);
-		$this->lt(s::isubstringCmp('xxabc', 2, 5, 'ABCD'), 0);
-		$this->eq(s::isubstringCmp('xxxxx', 5, 5, ''), 0);
-		$this->lt(s::isubstringCmp('xxxxx', 5, 5, 'A'), 0);
-		$this->eq(s::isubstringCmp('xabcx', 10, 5, ''), 0);
-		$this->lt(s::isubstringCmp('XABCX', 10, 5, 'xyz'), 0);
-		$this->eq(s::isubstringCmp('XXABC', 2, null, 'abc'), 0);
-		$this->eq(s::isubstringCmp('xxabc', -3, null, 'abc'), 0);
-		$this->eq(s::isubstringCmp('abcxx', -7, 5, 'abc'), 0);
-		$this->eq(s::isubstringCmp('abcde', -7, null, 'abcde'), 0);
-		$this->eq(s::isubstringCmp('abcde', -15, 5, ''), 0);
-		$this->eq(s::isubstringCmp('abcde', -15, null, 'abcde'), 0);
+	public function testISubstringCompare() {
+		$this->eq(s::iSubstringCompare('xabcx', 1, 3, 'ABC'), 0);
+		$this->ne(s::iSubstringCompare('xabcx', 1, 3, 'DEF'), 0);
+		$this->lt(s::iSubstringCompare('xabcx', 1, 0, 'XYZ'), 0);
+		$this->eq(s::iSubstringCompare('xabcx', 1, 0, ''), 0);
+		$this->eq(s::iSubstringCompare('xxabc', 2, 5, 'ABC'), 0);
+		$this->lt(s::iSubstringCompare('xxabc', 2, 5, 'ABCD'), 0);
+		$this->eq(s::iSubstringCompare('xxxxx', 5, 5, ''), 0);
+		$this->lt(s::iSubstringCompare('xxxxx', 5, 5, 'A'), 0);
+		$this->eq(s::iSubstringCompare('xabcx', 10, 5, ''), 0);
+		$this->lt(s::iSubstringCompare('XABCX', 10, 5, 'xyz'), 0);
+		$this->eq(s::iSubstringCompare('XXABC', 2, null, 'abc'), 0);
+		$this->eq(s::iSubstringCompare('xxabc', -3, null, 'abc'), 0);
+		$this->eq(s::iSubstringCompare('abcxx', -7, 5, 'abc'), 0);
+		$this->eq(s::iSubstringCompare('abcde', -7, null, 'abcde'), 0);
+		$this->eq(s::iSubstringCompare('abcde', -15, 5, ''), 0);
+		$this->eq(s::iSubstringCompare('abcde', -15, null, 'abcde'), 0);
 	}
 
 	public function testContains() {
@@ -500,14 +500,14 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::contains('xxxabcxx', 'abc', 4), false);
 	}
 
-	public function testIcontains() {
-		$this->eq(s::icontains('xabcx', 'ABC'), true);
-		$this->eq(s::icontains('xabcx', 'DEF'), false);
-		$this->eq(s::icontains('xxxxx', ''), true);
-		$this->eq(s::icontains('', ''), true);
-		$this->eq(s::icontains('', 'xxx'), false);
-		$this->eq(s::icontains('xxxAbCxx', 'aBc', 2), true);
-		$this->eq(s::icontains('xxxabcxx', 'abc', 4), false);
+	public function testIContains() {
+		$this->eq(s::iContains('xabcx', 'ABC'), true);
+		$this->eq(s::iContains('xabcx', 'DEF'), false);
+		$this->eq(s::iContains('xxxxx', ''), true);
+		$this->eq(s::iContains('', ''), true);
+		$this->eq(s::iContains('', 'xxx'), false);
+		$this->eq(s::iContains('xxxAbCxx', 'aBc', 2), true);
+		$this->eq(s::iContains('xxxabcxx', 'abc', 4), false);
 	}
 
 	public function testContainsChars() {
@@ -530,13 +530,13 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::beginsWith('abc', 'abcdef'), false);
 	}
 
-	public function testIbeginsWith() {
-		$this->eq(s::ibeginsWith('aBcdef', 'AbC'), true);
-		$this->eq(s::ibeginsWith('abcdef', 'xyz'), false);
-		$this->eq(s::ibeginsWith('abcdef', 'cde'), false);
-		$this->eq(s::ibeginsWith('', 'abc'), false);
-		$this->eq(s::ibeginsWith('AbCdef', ''), true);
-		$this->eq(s::ibeginsWith('abc', 'abcdef'), false);
+	public function testIBeginsWith() {
+		$this->eq(s::iBeginsWith('aBcdef', 'AbC'), true);
+		$this->eq(s::iBeginsWith('abcdef', 'xyz'), false);
+		$this->eq(s::iBeginsWith('abcdef', 'cde'), false);
+		$this->eq(s::iBeginsWith('', 'abc'), false);
+		$this->eq(s::iBeginsWith('AbCdef', ''), true);
+		$this->eq(s::iBeginsWith('abc', 'abcdef'), false);
 	}
 
 	public function testEndsWith() {
@@ -549,14 +549,14 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::endsWith('def', 'abcdef'), false);
 	}
 
-	public function testIendsWith() {
-		$this->eq(s::iendsWith('abcDeF', 'Def'), true);
-		$this->eq(s::iendsWith('abcdef', 'xyz'), false);
-		$this->eq(s::iendsWith('abcdef', 'bcd'), false);
-		$this->eq(s::iendsWith('a', 'def'), false);
-		$this->eq(s::iendsWith('', 'def'), false);
-		$this->eq(s::iendsWith('abcdef', ''), true);
-		$this->eq(s::iendsWith('def', 'abcdef'), false);
+	public function testIEndsWith() {
+		$this->eq(s::iEndsWith('abcDeF', 'Def'), true);
+		$this->eq(s::iEndsWith('abcdef', 'xyz'), false);
+		$this->eq(s::iEndsWith('abcdef', 'bcd'), false);
+		$this->eq(s::iEndsWith('a', 'def'), false);
+		$this->eq(s::iEndsWith('', 'def'), false);
+		$this->eq(s::iEndsWith('abcdef', ''), true);
+		$this->eq(s::iEndsWith('def', 'abcdef'), false);
 	}
 
 	public function testRemovePrefix() {
@@ -571,16 +571,16 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::removePrefix('', ''), '');
 	}
 
-	public function testIremovePrefix() {
-		$this->eq(s::iremovePrefix('aBCdEf', 'ABc'), 'dEf');
-		$this->eq(s::iremovePrefix('abcdef', 'xyz'), null);
-		$this->eq(s::iremovePrefix('abcdef', 'cde'), null);
-		$this->eq(s::iremovePrefix('abcdef', ''), 'abcdef');
-		$this->eq(s::iremovePrefix('abcdef', 'aBcDEf'), '');
-		$this->eq(s::iremovePrefix('abc', 'xyzijk'), null);
-		$this->eq(s::iremovePrefix('abc', 'abcdef'), null);
-		$this->eq(s::iremovePrefix('', 'abc'), null);
-		$this->eq(s::iremovePrefix('', ''), '');
+	public function testIRemovePrefix() {
+		$this->eq(s::iRemovePrefix('aBCdEf', 'ABc'), 'dEf');
+		$this->eq(s::iRemovePrefix('abcdef', 'xyz'), null);
+		$this->eq(s::iRemovePrefix('abcdef', 'cde'), null);
+		$this->eq(s::iRemovePrefix('abcdef', ''), 'abcdef');
+		$this->eq(s::iRemovePrefix('abcdef', 'aBcDEf'), '');
+		$this->eq(s::iRemovePrefix('abc', 'xyzijk'), null);
+		$this->eq(s::iRemovePrefix('abc', 'abcdef'), null);
+		$this->eq(s::iRemovePrefix('', 'abc'), null);
+		$this->eq(s::iRemovePrefix('', ''), '');
 	}
 
 	public function testRemoveSuffix() {
@@ -595,16 +595,16 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::removeSuffix('', ''), '');
 	}
 
-	public function testIremoveSuffix() {
-		$this->eq(s::iremoveSuffix('aBcdEf', 'DeF'), 'aBc');
-		$this->eq(s::iremoveSuffix('abcdef', 'xyz'), null);
-		$this->eq(s::iremoveSuffix('abcdef', 'bcd'), null);
-		$this->eq(s::iremoveSuffix('abcdef', ''), 'abcdef');
-		$this->eq(s::iremoveSuffix('abcdef', 'AbcdEf'), '');
-		$this->eq(s::iremoveSuffix('abc', 'xyzijk'), null);
-		$this->eq(s::iremoveSuffix('abc', 'abcdef'), null);
-		$this->eq(s::iremoveSuffix('', 'abc'), null);
-		$this->eq(s::iremoveSuffix('', ''), '');
+	public function testIRemoveSuffix() {
+		$this->eq(s::iRemoveSuffix('aBcdEf', 'DeF'), 'aBc');
+		$this->eq(s::iRemoveSuffix('abcdef', 'xyz'), null);
+		$this->eq(s::iRemoveSuffix('abcdef', 'bcd'), null);
+		$this->eq(s::iRemoveSuffix('abcdef', ''), 'abcdef');
+		$this->eq(s::iRemoveSuffix('abcdef', 'AbcdEf'), '');
+		$this->eq(s::iRemoveSuffix('abc', 'xyzijk'), null);
+		$this->eq(s::iRemoveSuffix('abc', 'abcdef'), null);
+		$this->eq(s::iRemoveSuffix('', 'abc'), null);
+		$this->eq(s::iRemoveSuffix('', ''), '');
 	}
 
 	public function testFind() {
@@ -622,36 +622,36 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::find('xxxabcxxxabcxxx', 'abc'), 3);
 	}
 
-	public function testIfind() {
-		$this->eq(s::ifind('abCdEf', 'cDe'), 2);
-		$this->eq(s::ifind('abcdef', 'xyz'), null);
-		$this->eq(s::ifind('abCDef', 'aBcdeF'), 0);
-		$this->eq(s::ifind('abcdef', 'abcdefghi'), null);
-		$this->eq(s::ifind('abcdef', ''), 0);
-		$this->eq(s::ifind('', 'abc'), null);
-		$this->eq(s::ifind('', ''), 0);
-		$this->eq(s::ifind('abcdef', 'bcd', 2), null);
-		$this->eq(s::ifind('abcDef', 'de', 2), 3);
-		$this->eq(s::ifind('abcdef', '', 2), 2);
-		$this->eq(s::ifind('abcdef', 'bcd', 10), null);
-		$this->eq(s::ifind('xxxABCxxxabcxxx', 'abc'), 3);
+	public function testIFind() {
+		$this->eq(s::iFind('abCdEf', 'cDe'), 2);
+		$this->eq(s::iFind('abcdef', 'xyz'), null);
+		$this->eq(s::iFind('abCDef', 'aBcdeF'), 0);
+		$this->eq(s::iFind('abcdef', 'abcdefghi'), null);
+		$this->eq(s::iFind('abcdef', ''), 0);
+		$this->eq(s::iFind('', 'abc'), null);
+		$this->eq(s::iFind('', ''), 0);
+		$this->eq(s::iFind('abcdef', 'bcd', 2), null);
+		$this->eq(s::iFind('abcDef', 'de', 2), 3);
+		$this->eq(s::iFind('abcdef', '', 2), 2);
+		$this->eq(s::iFind('abcdef', 'bcd', 10), null);
+		$this->eq(s::iFind('xxxABCxxxabcxxx', 'abc'), 3);
 	}
 
-	public function testRfind() {
-		$this->eq(s::rfind('xxxabcxxxabcxxx', 'abc'), 9);
-		$this->eq(s::rfind('abcdef', 'cde'), 2);
-		$this->eq(s::rfind('abcdef', 'xyz'), null);
-		$this->eq(s::rfind('abcdef', 'abcdef'), 0);
-		$this->eq(s::rfind('abcdef', 'abcdefghi'), null);
-		$this->eq(s::rfind('abcdef', ''), 6);
-		$this->eq(s::rfind('', 'abc'), null);
-		$this->eq(s::rfind('', ''), 0);
-		$this->eq(s::rfind('abcdef', 'cde', 2), 2);
-		$this->eq(s::rfind('abcdef', 'cde', 4), 2);
-		$this->eq(s::rfind('abcdef', 'cde', 5), null);
-		$this->eq(s::rfind('abcdef', 'bc', 2), 1);
-		$this->eq(s::rfind('abcdef', '', 2), 4);
-		$this->eq(s::rfind('abcdef', 'bcd', 10), null);
+	public function testRFind() {
+		$this->eq(s::rFind('xxxabcxxxabcxxx', 'abc'), 9);
+		$this->eq(s::rFind('abcdef', 'cde'), 2);
+		$this->eq(s::rFind('abcdef', 'xyz'), null);
+		$this->eq(s::rFind('abcdef', 'abcdef'), 0);
+		$this->eq(s::rFind('abcdef', 'abcdefghi'), null);
+		$this->eq(s::rFind('abcdef', ''), 6);
+		$this->eq(s::rFind('', 'abc'), null);
+		$this->eq(s::rFind('', ''), 0);
+		$this->eq(s::rFind('abcdef', 'cde', 2), 2);
+		$this->eq(s::rFind('abcdef', 'cde', 4), 2);
+		$this->eq(s::rFind('abcdef', 'cde', 5), null);
+		$this->eq(s::rFind('abcdef', 'bc', 2), 1);
+		$this->eq(s::rFind('abcdef', '', 2), 4);
+		$this->eq(s::rFind('abcdef', 'bcd', 10), null);
 	}
 
 	public function testBefore() {
@@ -722,7 +722,7 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSpan() {
-		$this->eq(s::span('aaab', 'a'), 3);
-		$this->eq(s::span('xyz', 'a'), 0);
+		$this->eq(s::characterRun('aaab', 'a'), 3);
+		$this->eq(s::characterRun('xyz', 'a'), 0);
 	}
 }

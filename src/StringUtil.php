@@ -10,8 +10,7 @@ namespace Jitsu;
  * A collection of static methods for dealing with strings.
  *
  * Case-insensitive methods are named after their case-sensitive counterparts
- * by prefixing the letter `i`. Similarly, methods which work in reverse on a
- * string are named after their counterparts by prefixing `r`.
+ * by prefixing the letter `i`.
  */
 class StringUtil {
 
@@ -55,7 +54,7 @@ class StringUtil {
 	 * @param string $b
 	 * @return bool
 	 */
-	public static function iequal($a, $b) {
+	public static function iEqual($a, $b) {
 		return strcasecmp($a, $b) === 0;
 	}
 
@@ -322,7 +321,7 @@ class StringUtil {
 	 * @param string $new
 	 * @return string
 	 */
-	public static function ireplace($s, $old, $new) {
+	public static function iReplace($s, $old, $new) {
 		if(strlen($old) === 0) {
 			if(strlen($s) === 0) {
 				return $new;
@@ -344,7 +343,7 @@ class StringUtil {
 	 * @param string $new
 	 * @return array The pair `array($result, $count)`.
 	 */
-	public static function ireplaceCount($s, $old, $new) {
+	public static function iReplaceCount($s, $old, $new) {
 		if(strlen($old) === 0) {
 			if(strlen($s) === 0) {
 				return array($new, 1);
@@ -431,7 +430,6 @@ class StringUtil {
 	 *
 	 * @param string $s
 	 * @param string $new The replacement string.
-	 * @param string $offset
 	 * @param int $offset
 	 * @param int|null $length
 	 * @return string
@@ -617,7 +615,7 @@ class StringUtil {
 	 * @param string $substr
 	 * @return string|null
 	 */
-	public static function istartingWith($s, $substr) {
+	public static function iStartingWith($s, $substr) {
 		if(strlen($substr) === 0) return $s;
 		$r = stristr($s, $substr);
 		return $r === false ? null : $r;
@@ -633,7 +631,7 @@ class StringUtil {
 	 * @return string|null Returns `null` if the string does not contain
 	 *                     the character.
 	 */
-	public static function rstartingWith($s, $char) {
+	public static function rStartingWith($s, $char) {
 		$r = strrchr($s, $char);
 		return $r === false ? null : $r;
 	}
@@ -675,7 +673,7 @@ class StringUtil {
 	 * @param string $substr
 	 * @return string|null
 	 */
-	public static function ipreceding($s, $substr) {
+	public static function iPreceding($s, $substr) {
 		if(strlen($substr) === 0) return '';
 		$r = stristr($s, $substr, true);
 		return $r === false ? null : $r;
@@ -750,61 +748,61 @@ class StringUtil {
 	 * @param string $b
 	 * @return int
 	 */
-	public static function cmp($a, $b) {
+	public static function compare($a, $b) {
 		return strcmp($a, $b);
 	}
 
 	/**
 	 * Like `cmp` but case-insensitive.
 	 *
-	 * @see \Jitsu\StringUtil::cmp()
+	 * @see \Jitsu\StringUtil::compare()
 	 *
 	 * @param string $a
 	 * @param string $b
 	 * @return int
 	 */
-	public static function icmp($a, $b) {
+	public static function iCompare($a, $b) {
 		return strcasecmp($a, $b);
 	}
 
 	/**
 	 * Like `cmp` but only checks the first `$n` characters.
 	 *
-	 * @see \Jitsu\StringUtil::cmp()
+	 * @see \Jitsu\StringUtil::compare()
 	 *
 	 * @param string $a
 	 * @param string $b
 	 * @param int $n
 	 * @return int
 	 */
-	public static function ncmp($a, $b, $n) {
+	public static function nCompare($a, $b, $n) {
 		return strncmp($a, $b, $n);
 	}
 
 	/**
 	 * Like `ncmp` but case-insensitive.
 	 *
-	 * @see \Jitsu\StringUtil::ncmp()
+	 * @see \Jitsu\StringUtil::nCompare()
 	 *
 	 * @param string $a
 	 * @param string $b
 	 * @param int $n
 	 * @return int
 	 */
-	public static function incmp($a, $b, $n) {
+	public static function inCompare($a, $b, $n) {
 		return strncasecmp($a, $b, $n);
 	}
 
 	/**
 	 * Like `cmp` but dependent on the current locale.
 	 *
-	 * @see \Jitsu\StringUtil::cmp()
+	 * @see \Jitsu\StringUtil::compare()
 	 *
 	 * @param string $a
 	 * @param string $b
 	 * @return int
 	 */
-	public static function localeCmp($a, $b) {
+	public static function localeCompare($a, $b) {
 		return strcoll($a, $b);
 	}
 
@@ -814,26 +812,26 @@ class StringUtil {
 	 * Orders strings in a way that seems more natural for human viewers
 	 * (numbers are sorted in increasing order, etc.).
 	 *
-	 * @see \Jitsu\StringUtil::cmp()
+	 * @see \Jitsu\StringUtil::compare()
 	 *
 	 * @param string $a
 	 * @param string $b
 	 * @return int
 	 */
-	public static function humanCmp($a, $b) {
+	public static function humanCompare($a, $b) {
 		return strnatcmp($a, $b);
 	}
 
 	/**
 	 * Like 'human_cmp' but case-insensitive.
 	 *
-	 * @see \Jitsu\StringUtil::human_cmp()
+	 * @see \Jitsu\StringUtil::humanCompare()
 	 *
 	 * @param string $a
 	 * @param string $b
 	 * @return int
 	 */
-	public static function ihumanCmp($a, $b) {
+	public static function iHumanCompare($a, $b) {
 		return strnatcasecmp($a, $b);
 	}
 
@@ -856,9 +854,9 @@ class StringUtil {
 	}
 
 	/**
-	 * Like `cmp` but uses only a substring of the first string.
+	 * Like `compare` but uses only a substring of the first string.
 	 *
-	 * @see \Jitsu\StringUtil::cmp()
+	 * @see \Jitsu\StringUtil::compare()
 	 *
 	 * @param string $a
 	 * @param int $offset Starting offset of where comparison with `$a`
@@ -869,14 +867,14 @@ class StringUtil {
 	 *                         until the of the string.
 	 * @return int
 	 */
-	public static function substringCmp($a, $offset, $length, $b) {
+	public static function substringCompare($a, $offset, $length, $b) {
 		return self::_substrCmp($a, $offset, $length, $b, false);
 	}
 
 	/**
-	 * Like `substringCmp` but case-insensitive.
+	 * Like `substringCompare` but case-insensitive.
 	 *
-	 * @see \Jitsu\StringUtil::substringCmp()
+	 * @see \Jitsu\StringUtil::substringCompare()
 	 *
 	 * @param string $a
 	 * @param int $offset
@@ -884,7 +882,7 @@ class StringUtil {
 	 * @param string $b
 	 * @return int
 	 */
-	public static function isubstringCmp($a, $offset, $length, $b) {
+	public static function iSubstringCompare($a, $offset, $length, $b) {
 		return self::_substrCmp($a, $offset, $length, $b, true);
 	}
 
@@ -911,13 +909,13 @@ class StringUtil {
 	 * @param int $offset
 	 * @return bool
 	 */
-	public static function icontains($s, $substr, $offset = 0) {
+	public static function iContains($s, $substr, $offset = 0) {
 		if(strlen($substr) === 0) return true;
 		return stripos($s, $substr, $offset) !== false;
 	}
 
 	/**
-	 * Determine whether a string includes one of number of characters.
+	 * Determine whether a string includes one of a number of characters.
 	 *
 	 * @param string $s
 	 * @param string $chars A list of characters.
@@ -958,7 +956,7 @@ class StringUtil {
 	 * @param string $prefix
 	 * @return bool
 	 */
-	public static function ibeginsWith($s, $prefix) {
+	public static function iBeginsWith($s, $prefix) {
 		return strncasecmp($s, $prefix, strlen($prefix)) === 0;
 	}
 
@@ -973,7 +971,7 @@ class StringUtil {
 		if(($n = strlen($suffix)) === 0) {
 			return true;
 		}
-		return self::substringCmp($s, -$n, null, $suffix) === 0;
+		return self::substringCompare($s, -$n, null, $suffix) === 0;
 	}
 
 	/**
@@ -985,11 +983,11 @@ class StringUtil {
 	 * @param string $suffix
 	 * @return bool
 	 */
-	public static function iendsWith($s, $suffix) {
+	public static function iEndsWith($s, $suffix) {
 		if(($n = strlen($suffix)) === 0) {
 			return true;
 		}
-		return self::isubstringCmp($s, -$n, null, $suffix) === 0;
+		return self::iSubstringCompare($s, -$n, null, $suffix) === 0;
 	}
 
 	/**
@@ -1014,8 +1012,8 @@ class StringUtil {
 	 * @param string $prefix
 	 * @return string|null
 	 */
-	public static function iremovePrefix($s, $prefix) {
-		return self::ibeginsWith($s, $prefix) ?
+	public static function iRemovePrefix($s, $prefix) {
+		return self::iBeginsWith($s, $prefix) ?
 			self::substring($s, strlen($prefix)) : null;
 	}
 
@@ -1041,8 +1039,8 @@ class StringUtil {
 	 * @param string $suffix
 	 * @return string|null
 	 */
-	public static function iremoveSuffix($s, $suffix) {
-		return self::iendsWith($s, $suffix) ?
+	public static function iRemoveSuffix($s, $suffix) {
+		return self::iEndsWith($s, $suffix) ?
 			self::substring($s, 0, strlen($s) - strlen($suffix)) : null;
 	}
 
@@ -1069,7 +1067,7 @@ class StringUtil {
 	 * @param int $offset
 	 * @return int|null
 	 */
-	public static function ifind($s, $substr, $offset = 0) {
+	public static function iFind($s, $substr, $offset = 0) {
 		return self::_find('stripos', $s, $substr, $offset);
 	}
 
@@ -1091,7 +1089,7 @@ class StringUtil {
 	 *                    from the _end_ of the string.
 	 * @return int|null
 	 */
-	public static function rfind($s, $substr, $offset = 0) {
+	public static function rFind($s, $substr, $offset = 0) {
 		if($offset > strlen($s)) return null;
 		if(strlen($substr) === 0) return strlen($s) - $offset;
 		$r = strrpos($s, $substr, -$offset);
@@ -1124,7 +1122,7 @@ class StringUtil {
 	 * @return string
 	 */
 	public static function after($s, $substr) {
-		$pos = self::rfind($s, $substr);
+		$pos = self::rFind($s, $substr);
 		if($pos === null) {
 			return $s;
 		} else {
@@ -1301,7 +1299,7 @@ class StringUtil {
 	 * @param int|null $end Optionally provide an ending offset.
 	 * @return int
 	 */
-	public static function span($s, $chars, $begin = 0, $end = null) {
+	public static function characterRun($s, $chars, $begin = 0, $end = null) {
 		if($end === null) {
 			return strspn($s, $chars, $begin);
 		} else {
@@ -1440,9 +1438,9 @@ class StringUtil {
 	}
 
 	/**
-	 * Alias for `from_ascii`.
+	 * Alias for `fromASCII`.
 	 *
-	 * @see \Jitsu\StringUtil::from_ascii()
+	 * @see \Jitsu\StringUtil::fromASCII()
 	 *
 	 * @param int $n
 	 * @return string
@@ -1462,9 +1460,9 @@ class StringUtil {
 	}
 
 	/**
-	 * Alias for `to_ascii`.
+	 * Alias for `toASCII`.
 	 *
-	 * @see \Jitsu\StringUtil::to_ascii()
+	 * @see \Jitsu\StringUtil::toASCII()
 	 *
 	 * @param string $c
 	 * @return int
@@ -1474,13 +1472,13 @@ class StringUtil {
 	}
 
 	/**
-	 * Count the frequencies of the 256 possible byte values in a string.
+	 * Tally the occurrences of the 256 possible byte values in a string.
 	 *
 	 * @param string $s
 	 * @return int[] Maps each byte value (0-255) to the number of its
 	 *               occurences in `$s`.
 	 */
-	public static function byteFrequencies($s) {
+	public static function byteCounts($s) {
 		return count_chars($s);
 	}
 

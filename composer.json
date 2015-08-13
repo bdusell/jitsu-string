@@ -1,5 +1,5 @@
 {
-  "name": "jitsu/stringutil",
+  "name": "jitsu/string",
   "description": "PHP's missing string library",
   "keywords": ["string", "utility"],
   "license": "MIT",
