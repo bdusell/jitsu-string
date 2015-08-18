@@ -7,11 +7,11 @@ use Jitsu\StringUtil as s;
 class StringUtilTest extends \PHPUnit_Framework_TestCase {
 
 	private function eq($a, $b) {
-		return $this->assertEquals($a, $b);
+		return $this->assertSame($a, $b);
 	}
 
 	private function ne($a, $b) {
-		return $this->assertNotEquals($a, $b);
+		return $this->assertNotSame($a, $b);
 	}
 
 	private function lt($a, $b) {
