@@ -37,6 +37,16 @@ class StringUtil {
 	}
 
 	/**
+	 * Determine whether a string is empty.
+	 *
+	 * @param string $s
+	 * @return bool
+	 */
+	public static function isEmpty($s) {
+		return strlen($s) === 0;
+	}
+
+	/**
 	 * Return whether two strings are equal.
 	 *
 	 * @param string $a
@@ -295,7 +305,7 @@ class StringUtil {
 	 * @param string $new
 	 * @return array The pair `array($result, $count)`.
 	 */
-	public static function replaceCount($s, $old, $new) {
+	public static function replaceAndCount($s, $old, $new) {
 		if(strlen($old) === 0) {
 			if(strlen($s) === 0) {
 				return array($new, 1);
@@ -334,16 +344,16 @@ class StringUtil {
 	}
 
 	/**
-	 * Like `replaceCount` but case-insensitive.
+	 * Like `replaceAndCount` but case-insensitive.
 	 *
-	 * @see \Jitsu\StringUtil::replaceCount()
+	 * @see \Jitsu\StringUtil::replaceAndCount()
 	 *
 	 * @param string $s
 	 * @param string $old
 	 * @param string $new
 	 * @return array The pair `array($result, $count)`.
 	 */
-	public static function iReplaceCount($s, $old, $new) {
+	public static function iReplaceAndCount($s, $old, $new) {
 		if(strlen($old) === 0) {
 			if(strlen($s) === 0) {
 				return array($new, 1);
@@ -687,7 +697,7 @@ class StringUtil {
 	 * @param string $s
 	 * @param string|null $chars An optional list of additional characters
 	 *                           to consider as word characters.
-	 * @return string
+	 * @return string[]
 	 */
 	public static function words($s, $chars = null) {
 		return str_word_count($s, 1, $chars);
@@ -867,7 +877,7 @@ class StringUtil {
 	 *                         until the of the string.
 	 * @return int
 	 */
-	public static function substringCompare($a, $offset, $length, $b) {
+	public static function substringCompare($a, $b, $offset, $length = null) {
 		return self::_substrCmp($a, $offset, $length, $b, false);
 	}
 
@@ -882,7 +892,7 @@ class StringUtil {
 	 * @param string $b
 	 * @return int
 	 */
-	public static function iSubstringCompare($a, $offset, $length, $b) {
+	public static function iSubstringCompare($a, $b, $offset, $length = null) {
 		return self::_substrCmp($a, $offset, $length, $b, true);
 	}
 
@@ -971,7 +981,7 @@ class StringUtil {
 		if(($n = strlen($suffix)) === 0) {
 			return true;
 		}
-		return self::substringCompare($s, -$n, null, $suffix) === 0;
+		return self::substringCompare($s, $suffix, -$n) === 0;
 	}
 
 	/**
@@ -987,7 +997,7 @@ class StringUtil {
 		if(($n = strlen($suffix)) === 0) {
 			return true;
 		}
-		return self::iSubstringCompare($s, -$n, null, $suffix) === 0;
+		return self::iSubstringCompare($s, $suffix, -$n) === 0;
 	}
 
 	/**
@@ -1340,7 +1350,7 @@ class StringUtil {
 	 * @param string $s
 	 * @return string
 	 */
-	public static function escapePHPString($s) {
+	public static function escapePhpString($s) {
 		return addslashes($s);
 	}
 
@@ -1433,14 +1443,14 @@ class StringUtil {
 	 * @param int $n
 	 * @return string A single character.
 	 */
-	public static function fromASCII($n) {
+	public static function fromAscii($n) {
 		return chr($n);
 	}
 
 	/**
 	 * Alias for `fromASCII`.
 	 *
-	 * @see \Jitsu\StringUtil::fromASCII()
+	 * @see \Jitsu\StringUtil::fromAscii()
 	 *
 	 * @param int $n
 	 * @return string
@@ -1455,14 +1465,14 @@ class StringUtil {
 	 * @param string $c A single character.
 	 * @return int
 	 */
-	public static function toASCII($c) {
+	public static function toAscii($c) {
 		return ord($c);
 	}
 
 	/**
 	 * Alias for `toASCII`.
 	 *
-	 * @see \Jitsu\StringUtil::toASCII()
+	 * @see \Jitsu\StringUtil::toAscii()
 	 *
 	 * @param string $c
 	 * @return int
@@ -1510,7 +1520,7 @@ class StringUtil {
 	 *                      un-escaped.
 	 * @return string
 	 */
-	public static function encodeHTML($s, $noquote = false) {
+	public static function encodeHtml($s, $noquote = false) {
 		return htmlspecialchars(
 			$s,
 			($noquote ? ENT_NOQUOTES : ENT_COMPAT) | ENT_HTML5,
@@ -1519,29 +1529,26 @@ class StringUtil {
 	}
 
 	/**
-	 * Alias of `encodeHTML`.
+	 * Alias of `encodeHtml`.
 	 *
-	 * @see \Jitsu\StringUtil::encodeHTML()
+	 * @see \Jitsu\StringUtil::encodeHtml()
 	 *
 	 * @param string $s
 	 * @param bool $noquote
 	 * @return string
 	 */
-	public static function escapeHTML() {
-		return call_user_func_array(
-			array('self', 'encodeHTML'),
-			func_get_args()
-		);
+	public static function escapeHtml($s, $noquote = false) {
+		return self::encodeHtml($s, $noquote);
 	}
 
 	/**
-	 * Inverse of `encodeHTML`.
+	 * Inverse of `encodeHtml`.
 	 *
 	 * The term "unencode" is used here as opposed to "decode" to emphasize
 	 * the fact that this function is not suitable for decoding arbitrary
-	 * HTML text, but rather HTML encoded by `encodeHTML` using only a
+	 * HTML text, but rather HTML encoded by `encodeHtml` using only a
 	 * minimal set of named character entity codes. This function does not
-	 * recognize named entities except for those encoded by `encodeHTML`
+	 * recognize named entities except for those encoded by `encodeHtml`
 	 * as well as `&apos;`. It will decode numeric entities except for
 	 * those corresponding to non-printable characters, which it will leave
 	 * encoded.
@@ -1549,7 +1556,7 @@ class StringUtil {
 	 * @param string $s
 	 * @return string
 	 */
-	public static function unencodeHTML($s) {
+	public static function unencodeHtml($s) {
 		return html_entity_decode($s, ENT_QUOTES | ENT_HTML5);
 	}
 
@@ -1560,7 +1567,7 @@ class StringUtil {
 	 * @param bool $noquote Whether the double quote (`"`) will be omitted.
 	 * @return string[]
 	 */
-	public static function encodeHTMLDict($noquote = false) {
+	public static function encodeHtmlDict($noquote = false) {
 		return get_html_translation_table(
 			HTML_SPECIALCHARS,
 			($noquote ? ENT_NOQUOTES : ENT_COMPAT) | ENT_HTML5,
@@ -1578,7 +1585,7 @@ class StringUtil {
 	 * @param string $s
 	 * @return string
 	 */
-	public static function encodeHTMLEntities($s) {
+	public static function encodeHtmlEntities($s) {
 		return htmlentities(
 			$s,
 			(ENT_QUOTES | ENT_SUBSTITUTE | ENT_DISALLOWED | ENT_HTML5),
@@ -1592,7 +1599,7 @@ class StringUtil {
 	 *
 	 * @return string[] Maps characters to character entities.
 	 */
-	public static function encodeHTMLEntitiesDict() {
+	public static function encodeHtmlEntitiesDict() {
 		return get_html_translation_table(
 			HTML_ENTITIES,
 			ENT_QUOTES | ENT_HTML5,
@@ -1663,13 +1670,13 @@ class StringUtil {
 	 *
 	 * This adheres to the standard which does not encode spaces as `+`.
 	 *
-	 * @see \Jitsu\StringUtil::encodeURL() For compatibility
-	 *          reasons, `encodeURL` should be preferred.
+	 * @see \Jitsu\StringUtil::encodeUrl() For compatibility
+	 *          reasons, `encodeUrl` should be preferred.
 	 *
 	 * @param string $s
 	 * @return string
 	 */
-	public static function encodeStandardURL($s) {
+	public static function encodeStandardUrl($s) {
 		return rawurlencode($s);
 	}
 
@@ -1678,13 +1685,13 @@ class StringUtil {
 	 *
 	 * This adheres to the standard which does not encode spaces as `+`.
 	 *
-	 * @see \Jitsu\StringUtil::decodeURL() For compatibility
-	 *          reasons, `decodeURL` should be preferred.
+	 * @see \Jitsu\StringUtil::decodeUrl() For compatibility
+	 *          reasons, `decodeUrl` should be preferred.
 	 *
 	 * @param string $s
 	 * @return string
 	 */
-	public static function decodeStandardURL($s) {
+	public static function decodeStandardUrl($s) {
 		return rawurldecode($s);
 	}
 
@@ -1694,7 +1701,7 @@ class StringUtil {
 	 * @param string $s
 	 * @return string
 	 */
-	public static function encodeURL($s) {
+	public static function encodeUrl($s) {
 		return urlencode($s);
 	}
 
@@ -1704,7 +1711,7 @@ class StringUtil {
 	 * @param string $s
 	 * @return string
 	 */
-	public static function decodeURL($s) {
+	public static function decodeUrl($s) {
 		return urldecode($s);
 	}
 
@@ -1716,12 +1723,10 @@ class StringUtil {
 	 * @param string $quote Optional enclosure (quote) character. Default
 	 *                      is `"`.
 	 * @param string $escape Optional escape character. Default is `\\`.
+	 * @return string[]
 	 */
-	public static function parseCSV(/* $s, $delim, $quote, $escape */) {
-		return call_user_func_array(
-			'str_getcsv',
-			func_get_args()
-		);
+	public static function parseCsv($s, $delim = ',', $quote = '"', $escape = '\\') {
+		return str_getcsv($s, $delim, $quote, $escape);
 	}
 
 	/**
@@ -1808,12 +1813,12 @@ class StringUtil {
 	 * @return string
 	 */
 	public static function formatNumber(
-		/* $number, $decimals, $decimal_point, $thousands_sep */)
-	{
-		return call_user_func_array(
-			'number_format',
-			func_get_args()
-		);
+		$number,
+		$decimals = 0,
+		$decimal_point = '.',
+		$thousands_sep = ','
+	) {
+		return number_format($number, $decimals, $decimal_point, $thousands_sep);
 	}
 
 	/**
@@ -1830,11 +1835,12 @@ class StringUtil {
 	 * @param int $del Optional cost per deletion.
 	 * @return int
 	 */
-	public static function levenshtein(/* $s1, $s2, [$ins, $repl, $del] */) {
-		return call_user_func_array(
-			'levenshtein',
-			func_get_args()
-		);
+	public static function levenshtein($s1, $s2, $ins = null, $repl = null, $del = null) {
+		if($ins === null) {
+			return levenshtein($s1, $s2);
+		} else {
+			return levenshtein($s1, $s2, $ins, $repl, $del);
+		}
 	}
 
 	/**

@@ -7,11 +7,11 @@ use Jitsu\StringUtil as s;
 class StringUtilTest extends \PHPUnit_Framework_TestCase {
 
 	private function eq($a, $b) {
-		return $this->assertSame($a, $b);
+		return $this->assertSame($b, $a);
 	}
 
 	private function ne($a, $b) {
-		return $this->assertNotSame($a, $b);
+		return $this->assertNotSame($b, $a);
 	}
 
 	private function lt($a, $b) {
@@ -26,6 +26,12 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::length('aaa'), 3);
 		$this->eq(s::length(''), 0);
 		$this->eq(s::size(''), 0);
+	}
+
+	public function testIsEmpty() {
+		$this->eq(s::isEmpty(''), true);
+		$this->eq(s::isEmpty('aaa'), false);
+		$this->eq(s::isEmpty('0'), false);
 	}
 
 	public function testEqual() {
@@ -152,18 +158,18 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::replace('', '', 'x'), 'x');
 	}
 
-	public function testReplaceCount() {
-		$this->eq(s::replaceCount('abcxabc', 'x', 'y'),
+	public function testReplaceAndCount() {
+		$this->eq(s::replaceAndCount('abcxabc', 'x', 'y'),
 			array('abcyabc', 1));
-		$this->eq(s::replaceCount('afoobara', 'foobar', 'b'),
+		$this->eq(s::replaceAndCount('afoobara', 'foobar', 'b'),
 			array('aba', 1));
-		$this->eq(s::replaceCount('aaxyaaaxya', 'xy', 'b'),
+		$this->eq(s::replaceAndCount('aaxyaaaxya', 'xy', 'b'),
 			array('aabaaaba', 2));
-		$this->eq(s::replaceCount('', 'abc', ''),
+		$this->eq(s::replaceAndCount('', 'abc', ''),
 			array('', 0));
-		$this->eq(s::replaceCount('abc', '', 'x'),
+		$this->eq(s::replaceAndCount('abc', '', 'x'),
 			array('xaxbxcx', 4));
-		$this->eq(s::replaceCount('', '', 'x'),
+		$this->eq(s::replaceAndCount('', '', 'x'),
 			array('x', 1));
 	}
 
@@ -176,18 +182,18 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::iReplace('', '', 'x'), 'x');
 	}
 
-	public function testIReplaceCount() {
-		$this->eq(s::iReplaceCount('abcXabc', 'x', 'y'),
+	public function testIReplaceAndCount() {
+		$this->eq(s::iReplaceAndCount('abcXabc', 'x', 'y'),
 			array('abcyabc', 1));
-		$this->eq(s::iReplaceCount('afoOBara', 'foobar', 'b'),
+		$this->eq(s::iReplaceAndCount('afoOBara', 'foobar', 'b'),
 			array('aba', 1));
-		$this->eq(s::iReplaceCount('aaxYaaaXya', 'xy', 'b'),
+		$this->eq(s::iReplaceAndCount('aaxYaaaXya', 'xy', 'b'),
 			array('aabaaaba', 2));
-		$this->eq(s::iReplaceCount('', 'abc', ''),
+		$this->eq(s::iReplaceAndCount('', 'abc', ''),
 			array('', 0));
-		$this->eq(s::iReplaceCount('abc', '', 'x'),
+		$this->eq(s::iReplaceAndCount('abc', '', 'x'),
 			array('xaxbxcx', 4));
-		$this->eq(s::iReplaceCount('', '', 'x'),
+		$this->eq(s::iReplaceAndCount('', '', 'x'),
 			array('x', 1));
 	}
 
@@ -450,44 +456,44 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSubstringCompare() {
-		$this->eq(s::substringCompare('xabcx', 1, 3, 'abc'), 0);
-		$this->ne(s::substringCompare('xabcx', 1, 3, 'def'), 0);
-		$this->lt(s::substringCompare('xabcx', 1, 0, 'xyz'), 0);
-		$this->eq(s::substringCompare('xabcx', 1, 0, ''), 0);
-		$this->eq(s::substringCompare('xxabc', 2, 5, 'abc'), 0);
-		$this->lt(s::substringCompare('xxabc', 2, 5, 'abcd'), 0);
-		$this->eq(s::substringCompare('xxxxx', 5, 5, ''), 0);
-		$this->lt(s::substringCompare('xxxxx', 5, 5, 'a'), 0);
-		$this->eq(s::substringCompare('xabcx', 10, 5, ''), 0);
-		$this->lt(s::substringCompare('xabcx', 10, 5, 'xyz'), 0);
-		$this->eq(s::substringCompare('xxabc', 2, null, 'abc'), 0);
-		$this->eq(s::substringCompare('xxabc', -3, null, 'abc'), 0);
-		$this->eq(s::substringCompare('abcxx', -7, 5, 'abc'), 0);
-		$this->eq(s::substringCompare('abcde', -7, null, 'abcde'), 0);
-		$this->eq(s::substringCompare('abcde', -15, 5, ''), 0);
-		$this->eq(s::substringCompare('abcde', -15, null, 'abcde'), 0);
-		$this->lt(s::substringCompare('', 0, 1, 'abc'), 0);
-		$this->lt(s::substringCompare('', -5, 1, 'abc'), 0);
-		$this->lt(s::substringCompare('', -3, null, 'abc'), 0);
+		$this->eq(s::substringCompare('xabcx', 'abc', 1, 3), 0);
+		$this->ne(s::substringCompare('xabcx', 'def', 1, 3), 0);
+		$this->lt(s::substringCompare('xabcx', 'xyz', 1, 0), 0);
+		$this->eq(s::substringCompare('xabcx', '', 1, 0), 0);
+		$this->eq(s::substringCompare('xxabc', 'abc', 2, 5), 0);
+		$this->lt(s::substringCompare('xxabc', 'abcd', 2, 5), 0);
+		$this->eq(s::substringCompare('xxxxx', '', 5, 5), 0);
+		$this->lt(s::substringCompare('xxxxx', 'a', 5, 5), 0);
+		$this->eq(s::substringCompare('xabcx', '', 10, 5), 0);
+		$this->lt(s::substringCompare('xabcx', 'xyz', 10, 5), 0);
+		$this->eq(s::substringCompare('xxabc', 'abc', 2, null), 0);
+		$this->eq(s::substringCompare('xxabc', 'abc', -3, null), 0);
+		$this->eq(s::substringCompare('abcxx', 'abc', -7, 5), 0);
+		$this->eq(s::substringCompare('abcde', 'abcde', -7, null), 0);
+		$this->eq(s::substringCompare('abcde', '', -15, 5), 0);
+		$this->eq(s::substringCompare('abcde', 'abcde', -15, null), 0);
+		$this->lt(s::substringCompare('', 'abc', 0, 1), 0);
+		$this->lt(s::substringCompare('', 'abc', -5, 1), 0);
+		$this->lt(s::substringCompare('', 'abc', -3, null), 0);
 	}
 
 	public function testISubstringCompare() {
-		$this->eq(s::iSubstringCompare('xabcx', 1, 3, 'ABC'), 0);
-		$this->ne(s::iSubstringCompare('xabcx', 1, 3, 'DEF'), 0);
-		$this->lt(s::iSubstringCompare('xabcx', 1, 0, 'XYZ'), 0);
-		$this->eq(s::iSubstringCompare('xabcx', 1, 0, ''), 0);
-		$this->eq(s::iSubstringCompare('xxabc', 2, 5, 'ABC'), 0);
-		$this->lt(s::iSubstringCompare('xxabc', 2, 5, 'ABCD'), 0);
-		$this->eq(s::iSubstringCompare('xxxxx', 5, 5, ''), 0);
-		$this->lt(s::iSubstringCompare('xxxxx', 5, 5, 'A'), 0);
-		$this->eq(s::iSubstringCompare('xabcx', 10, 5, ''), 0);
-		$this->lt(s::iSubstringCompare('XABCX', 10, 5, 'xyz'), 0);
-		$this->eq(s::iSubstringCompare('XXABC', 2, null, 'abc'), 0);
-		$this->eq(s::iSubstringCompare('xxabc', -3, null, 'abc'), 0);
-		$this->eq(s::iSubstringCompare('abcxx', -7, 5, 'abc'), 0);
-		$this->eq(s::iSubstringCompare('abcde', -7, null, 'abcde'), 0);
-		$this->eq(s::iSubstringCompare('abcde', -15, 5, ''), 0);
-		$this->eq(s::iSubstringCompare('abcde', -15, null, 'abcde'), 0);
+		$this->eq(s::iSubstringCompare('xabcx', 'ABC', 1, 3), 0);
+		$this->ne(s::iSubstringCompare('xabcx', 'DEF', 1, 3), 0);
+		$this->lt(s::iSubstringCompare('xabcx', 'XYZ', 1, 0), 0);
+		$this->eq(s::iSubstringCompare('xabcx', '', 1, 0), 0);
+		$this->eq(s::iSubstringCompare('xxabc', 'ABC', 2, 5), 0);
+		$this->lt(s::iSubstringCompare('xxabc', 'ABCD', 2, 5), 0);
+		$this->eq(s::iSubstringCompare('xxxxx', '', 5, 5), 0);
+		$this->lt(s::iSubstringCompare('xxxxx', 'A', 5, 5), 0);
+		$this->eq(s::iSubstringCompare('xabcx', '', 10, 5), 0);
+		$this->lt(s::iSubstringCompare('XABCX', 'xyz', 10, 5), 0);
+		$this->eq(s::iSubstringCompare('XXABC', 'abc', 2, null), 0);
+		$this->eq(s::iSubstringCompare('xxabc', 'abc', -3, null), 0);
+		$this->eq(s::iSubstringCompare('abcxx', 'abc', -7, 5), 0);
+		$this->eq(s::iSubstringCompare('abcde', 'abcde', -7, null), 0);
+		$this->eq(s::iSubstringCompare('abcde', '', -15, 5), 0);
+		$this->eq(s::iSubstringCompare('abcde', 'abcde', -15, null), 0);
 	}
 
 	public function testContains() {
