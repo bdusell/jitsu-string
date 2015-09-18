@@ -139,6 +139,7 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->eq(s::ucfirst('abc'), 'Abc');
 		$this->eq(s::ucfirst(''), '');
 		$this->eq(s::upperFirst('abc'), 'Abc');
+		$this->eq(s::capitalize('abc'), 'Abc');
 	}
 
 	public function testUcwords() {

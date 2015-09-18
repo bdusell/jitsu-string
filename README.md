@@ -5,7 +5,7 @@ The `Jitsu\StringUtil` class is a collection of static methods for dealing with
 strings in PHP.
 
 Why? Because many of PHP's built-in string functions are poorly named, have
-awkward interfaces, and treat valid edge cases as error conditions.
+awkward interfaces, and treat arguably valid edge cases as errors.
 
 `StringUtil` addresses these issues, providing a more intuitive interface to
 the standard PHP string functions while offering capabilities which are lacking
@@ -13,8 +13,7 @@ in the built-in library.
 
 ## Running Unit Tests
 
-This library is unit-tested. You can verify the results for yourself by running
-the following:
+Run the unit test suite as follows:
 
 ```sh
 composer install

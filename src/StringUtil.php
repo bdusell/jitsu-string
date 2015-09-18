@@ -256,6 +256,13 @@ class StringUtil {
 	}
 
 	/**
+	 * @see \Jitsu\StringUtil\ucfirst() Alias for `ucfirst`.
+	 */
+	public static function capitalize($s) {
+		return ucfirst($s);
+	}
+
+	/**
 	 * Capitalize all words in a string.
 	 *
 	 * Converts any alphabetic character that appears after whitespace to
