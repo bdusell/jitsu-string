@@ -232,7 +232,7 @@ class StringUtil {
 	}
 
 	/**
-	 * @see \Jitsu\StringUtil\lcfirst() Alias for `lcfirst`.
+	 * @see \Jitsu\StringUtil::lcfirst() Alias for `lcfirst`.
 	 */
 	public static function lowerFirst($s) {
 		return lcfirst($s);
@@ -249,14 +249,14 @@ class StringUtil {
 	}
 
 	/**
-	 * @see \Jitsu\StringUtil\ucfirst() Alias for `ucfirst`.
+	 * @see \Jitsu\StringUtil::ucfirst() Alias for `ucfirst`.
 	 */
 	public static function upperFirst($s) {
 		return ucfirst($s);
 	}
 
 	/**
-	 * @see \Jitsu\StringUtil\ucfirst() Alias for `ucfirst`.
+	 * @see \Jitsu\StringUtil::ucfirst() Alias for `ucfirst`.
 	 */
 	public static function capitalize($s) {
 		return ucfirst($s);
@@ -276,7 +276,7 @@ class StringUtil {
 	}
 
 	/**
-	 * @see \Jitsu\StringUtil\ucwords() Alias for `ucwords`.
+	 * @see \Jitsu\StringUtil::ucwords() Alias for `ucwords`.
 	 */
 	public static function capitalizeWords($s) {
 		return ucwords($s);
@@ -387,8 +387,9 @@ class StringUtil {
 	 * their corresponding values.
 	 *
 	 * @param string $s
-	 * @param string[] An array mapping the substrings to be replaced to
-	 *                 their replacements. Longer keys have precedence.
+	 * @param string[] $pairs An array mapping the substrings to be
+	 *                        replaced to their replacements. Longer keys
+	 *                        have precedence.
 	 * @return string
 	 */
 	public static function replaceMultiple($s, $pairs) {
@@ -486,10 +487,10 @@ class StringUtil {
 	/**
 	 * Replace a slice of a string with another string.
 	 *
-	 * @see \Jitsu\StringUtil::slice()
-	 *
 	 * If the starting index comes after the ending index, the replacement
 	 * is inserted at the starting index.
+	 *
+	 * @see \Jitsu\StringUtil::slice()
 	 *
 	 * @param string $s
 	 * @param string $new
@@ -1273,8 +1274,8 @@ class StringUtil {
 	 *
 	 * @param string $s
 	 * @param string $substr
-	 * @param int Optionally provide a starting offset.
-	 * @param int|null Optionally provide a maximum length.
+	 * @param int $offset Optionally provide a starting offset.
+	 * @param int|null $length Optionally provide a maximum length.
 	 * @return int
 	 */
 	public static function count($s, $substr, $offset = 0, $length = null) {
@@ -1364,7 +1365,7 @@ class StringUtil {
 	/**
 	 * Remove all backslash (`\`) escape characters from a string.
 	 *
-	 * Note that this does not interpret `\n` as a newline, '\t' as tab,
+	 * Note that this does not interpret `\n` as a newline, `\t` as tab,
 	 * etc., but as the literal characters `n`, `t`, etc.
 	 *
 	 * @param string $s
@@ -1814,9 +1815,12 @@ class StringUtil {
 	 * Format a number with commas and a decimal point.
 	 *
 	 * @param int|float $number
-	 * @param int Optional number of decimal placed. Default is 0.
-	 * @param string Optional decimal point character. Default is `.`.
-	 * @param string Optional thousands separator. Default is `,`.
+	 * @param int $decimals Optional number of decimal places. Default
+	 *                      is 0.
+	 * @param string $decimal_point Optional decimal point character.
+	 *                              Default is `.`.
+	 * @param string $thousands_sep Optional thousands separator. Default
+	 *                              is `,`.
 	 * @return string
 	 */
 	public static function formatNumber(
@@ -1888,7 +1892,7 @@ class StringUtil {
 		// Sibilants
 		// -s, -z, -x, -j, -sh, -tch, -zh => -ses, -zes, etc.
 		// Note that this will fail for hard ch sometimes,
-		// as in the word "hierarchs"
+		// as in the word "hierarchs" or "stomachs"
 		$result = preg_replace('/([^aeiouy]ch|[sz]h|[szxj])$/', '$1es', $s, 1, $count);
 		if($count) return $result;
 
