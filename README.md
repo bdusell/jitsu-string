@@ -594,7 +594,7 @@ the same, and a number greater than 0 if `$a` comes after `$b`.
 
 #### StringUtil::iCompare($a, $b)
 
-Like `cmp` but case-insensitive.
+Like `compare` but case-insensitive.
 
 See `\Jitsu\StringUtil::compare()`.
 
@@ -606,7 +606,7 @@ See `\Jitsu\StringUtil::compare()`.
 
 #### StringUtil::nCompare($a, $b, $n)
 
-Like `cmp` but only checks the first `$n` characters.
+Like `compare` but only checks the first `$n` characters.
 
 See `\Jitsu\StringUtil::compare()`.
 
@@ -619,7 +619,7 @@ See `\Jitsu\StringUtil::compare()`.
 
 #### StringUtil::inCompare($a, $b, $n)
 
-Like `ncmp` but case-insensitive.
+Like `nCompare` but case-insensitive.
 
 See `\Jitsu\StringUtil::nCompare()`.
 
@@ -632,7 +632,7 @@ See `\Jitsu\StringUtil::nCompare()`.
 
 #### StringUtil::localeCompare($a, $b)
 
-Like `cmp` but dependent on the current locale.
+Like `compare` but dependent on the current locale.
 
 See `\Jitsu\StringUtil::compare()`.
 
@@ -644,7 +644,7 @@ See `\Jitsu\StringUtil::compare()`.
 
 #### StringUtil::humanCompare($a, $b)
 
-Like `cmp` but uses a human-sensible comparison.
+Like `compare` but uses a human-sensible comparison.
 
 Orders strings in a way that seems more natural for human viewers
 (numbers are sorted in increasing order, etc.).
@@ -659,7 +659,7 @@ See `\Jitsu\StringUtil::compare()`.
 
 #### StringUtil::iHumanCompare($a, $b)
 
-Like 'human_cmp' but case-insensitive.
+Like `humanCompare` but case-insensitive.
 
 See `\Jitsu\StringUtil::humanCompare()`.
 

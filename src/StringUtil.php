@@ -771,7 +771,7 @@ class StringUtil {
 	}
 
 	/**
-	 * Like `cmp` but case-insensitive.
+	 * Like `compare` but case-insensitive.
 	 *
 	 * @see \Jitsu\StringUtil::compare()
 	 *
@@ -784,7 +784,7 @@ class StringUtil {
 	}
 
 	/**
-	 * Like `cmp` but only checks the first `$n` characters.
+	 * Like `compare` but only checks the first `$n` characters.
 	 *
 	 * @see \Jitsu\StringUtil::compare()
 	 *
@@ -798,7 +798,7 @@ class StringUtil {
 	}
 
 	/**
-	 * Like `ncmp` but case-insensitive.
+	 * Like `nCompare` but case-insensitive.
 	 *
 	 * @see \Jitsu\StringUtil::nCompare()
 	 *
@@ -812,7 +812,7 @@ class StringUtil {
 	}
 
 	/**
-	 * Like `cmp` but dependent on the current locale.
+	 * Like `compare` but dependent on the current locale.
 	 *
 	 * @see \Jitsu\StringUtil::compare()
 	 *
@@ -825,7 +825,7 @@ class StringUtil {
 	}
 
 	/**
-	 * Like `cmp` but uses a human-sensible comparison.
+	 * Like `compare` but uses a human-sensible comparison.
 	 *
 	 * Orders strings in a way that seems more natural for human viewers
 	 * (numbers are sorted in increasing order, etc.).
@@ -841,7 +841,7 @@ class StringUtil {
 	}
 
 	/**
-	 * Like 'human_cmp' but case-insensitive.
+	 * Like `humanCompare` but case-insensitive.
 	 *
 	 * @see \Jitsu\StringUtil::humanCompare()
 	 *
